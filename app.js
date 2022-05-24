@@ -16,6 +16,7 @@ import logoutRouter from './routes/UI/logout.js';
 
 // UI routes
 import homeRouter from './routes/UI/home.js';
+import userRouter from './routes/UI/user.js';
 
 const app = express();
 const port = process.env.PORT;
@@ -42,6 +43,7 @@ app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/', homeRouter);
+app.use('/user', userRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on PORT http://localhost:${port}`)

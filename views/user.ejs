@@ -19,111 +19,119 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="/scripts/main.js" defer></script>
     <title>
         <%= title %>
     </title>
 </head>
 
 <body>
-    <div>
+    <nav>
+        <div class="username">
+            You are logged in with email - <%=userData.email%>
+        </div>
+        <div>
+            <a href="/logout"><button class="btn btn-primary">Logout</button></a>
+        </div>
+    </nav>
+    <main>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault" id="darkModeLabel">Dark mode
+                OFF</label>
+        </div>
         <h1>
             <%=userData.username%> Blogs
         </h1>
-    </div>
-    <div>You are logged in with email - <%=userData.email%>
+        <div class="newBlogButtonDiv">
             <div>
-                <a href="/logout"><button class="btn btn-primary">Logout</button></a>
+                <a href="/"><button class="btn btn-primary">All blogs</button></a>
             </div>
-    </div>
-    <div>
-        <div>
-            <form action="/user" method="GET">
-                <div class="form-group">
-                    <label for="sorting">Sorting</label>
-                    <select name="sorting" id="sorting" class="form-control">
-                        <option value="creationDateAsc">Creation date Asc</option>
-                        <option value="creationDateDesc">Creation date Desc</option>
-                        <option value="titleAsc">Title (A-Z)</option>
-                        <option value="titleDesc">Title (Z-A)</option>
-                    </select>
-                    <input type="submit" value="Sort" class="btn btn-primary">
-                </div>
-            </form>
-        </div>
-        <div>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                 + New Blog
             </button>
         </div>
-        <div class="container">
-            <div class="row">
-                <%blogs.forEach ((blog)=> {%>
-                    <div class="col">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
+        <div>
+            <div>
+                <form action="/user" method="GET">
+                    <div class="form-group">
+                        <label for="sorting">Sorting</label>
+                        <select name="sorting" id="sorting" class="form-control">
+                            <option value="creationDateAsc">Creation date Asc</option>
+                            <option value="creationDateDesc">Creation date Desc</option>
+                            <option value="titleAsc">Title (A-Z)</option>
+                            <option value="titleDesc">Title (Z-A)</option>
+                        </select>
+                        <input type="submit" value="Sort" class="btn btn-secondary">
+                    </div>
+                </form>
+            </div>
+
+            <div class="container">
+                <div>
+                    <%blogs.forEach ((blog)=> {%>
+                        <div class="flexContainer">
+                            <div class="infoDiv">
                                 <h5 class="card-title">
+                                    Title -
                                     <%=blog.title%>
                                 </h5>
-                                <h6>Creation day - <%=blog.created_at.toLocaleString('LT').slice(0, 10)%>
+                                <h6>Created at - <%=blog.created_at.toLocaleString('LT').slice(0, 10)%>
                                 </h6>
                                 <h6>Creation time - <%=blog.created_at.toLocaleString('LT').slice(11, 20)%>
                                 </h6>
+                                <h6>Created by : <%=blog.name%>
+                                </h6>
+                            </div>
+                            <div class="contentDiv">
                                 <p class="card-text">
+                                    Content <br>
                                     <%=blog.content%>
                                 </p>
+                                <button class="btn btn-danger deleteButton" id="<%=blog.id%>">Delete</button>
                             </div>
-                            <button class="btn btn-danger deleteButton" id="<%=blog.id%>">Delete</button>
                         </div>
-                    </div>
-                    <% }) %>
+                        <% }) %>
+                </div>
             </div>
-        </div>
-        <section>
-            <!-- Modal for new blog -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">New Blog</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="/user" method="post">
-                                <div class="form-group">
-                                    <label for="title">Blog title</label>
-                                    <input type="text" name="title" id="title" class="form-control"
-                                        placeholder="Blog title">
-                                </div>
-                                <div class="form-group">
-                                    <label for="content">Blog content</label>
-                                    <textarea class="form-control" name="content" id="description" rows="3"></textarea>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <input type="submit" class="btn btn-primary" value="Save changes">
-                                </div>
-                            </form>
+            <section>
+                <!-- Modal for new blog -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">New Blog</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/user" method="post">
+                                    <div class="form-group">
+                                        <label for="title">Blog title</label>
+                                        <input type="text" name="title" id="title" class="form-control"
+                                            placeholder="Blog title">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="content">Blog content</label>
+                                        <textarea class="form-control" name="content" id="description"
+                                            rows="3"></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <input type="submit" class="btn btn-primary" value="Post">
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+    </main>
 </body>
-
-<script defer>
-    const deleteButtons = document.querySelectorAll('.deleteButton')
-    deleteButtons.forEach((btn) => {
-        btn.addEventListener('click', event => {
-            console.log(event.target.id)
-            fetch(`http://localhost:3000/user/blog/${event.target.id}`, {
-                method: 'DELETE',
-            })
-                .then(location.reload())
-        })
-    })
-</script>
 
 </html>

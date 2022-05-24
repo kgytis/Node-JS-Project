@@ -30,16 +30,6 @@ ul {
     margin: 0;
 }
 
-/* 
-a {
-    margin: 0 5px;
-    padding: 5px 20px;
-    border: 1px solid black;
-    text-decoration: none;
-    color: black;
-    border-radius: 10px;
-} */
-
 .signUp:hover {
     background-color: rgba(132, 132, 132, 0.992);
     color: white

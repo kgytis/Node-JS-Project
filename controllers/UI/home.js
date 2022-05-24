@@ -14,6 +14,8 @@ const allBlogs = async (req, res) => {
         let sql = `
         SELECT * 
         FROM blog
+        INNER JOIN user
+        ON blog.author_id = user.id
         `;
         // SORTING -----------------------------------------------------------------------------
         // All Desc

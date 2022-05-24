@@ -54,8 +54,6 @@ const newBlog = async (req, res) => {
         const con = await mysql.createConnection(mysqlConfig);
         const userID = req.userID;
         const { title, content } = req.body
-        console.log(title);
-        console.log(content);
         const creationTime = new Date().toLocaleString('LT');
         let sql = `
     INSERT INTO blog (author_id, title, content, created_at)

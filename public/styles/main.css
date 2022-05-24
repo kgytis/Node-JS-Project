@@ -11,8 +11,21 @@
     align-items: center;
 }
 
+main {
+    margin: 1rem 5rem;
+}
+
+.newBlogButtonDiv {
+    display: flex;
+}
+
 .btn {
     margin-top: 5px;
+    margin-right: 5px;
+}
+
+.username {
+    margin-right: 5px;
 }
 
 nav {
@@ -22,15 +35,25 @@ nav {
     height: 70px;
 }
 
-ul {
+.flexContainer {
     display: flex;
-    justify-content: space-between;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    margin-top: 1em;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-.signUp:hover {
-    background-color: rgba(132, 132, 132, 0.992);
-    color: white
+.infoDiv {
+    width: 20%;
+    border: 1px solid black;
+    padding: 0.67em;
+}
+
+.contentDiv {
+    width: 80%;
+    border: 1px solid black;
+    padding: 0.67em
+}
+
+.dark-mode {
+    background-color: black;
+    color: white;
 }

@@ -3,14 +3,37 @@ import mysql from 'mysql2/promise';
 import mysqlConfig from '../../dbConfig.js';
 
 const allBlogs = async (req, res) => {
+    console.log(req.userID)
     const con = await mysql.createConnection(mysqlConfig);
-    const sql = `
-SELECT * 
-FROM blog
+    let blogSql = null;
+    let userSql = null;
+    if (req.userID) {
+        blogSql = `
+    SELECT * 
+    FROM blog
 `;
-    const [data] = await con.query(sql);
-    res.send(data);
-    con.end();
+        userSql = `
+    SELECT * 
+    FROM user
+    WHERE id = ?
+`;
+    } else {
+        blogSql = `
+    SELECT * 
+    FROM blog
+    `
+    };
+    if (blogSql && userSql) {
+        const [dataBlog] = await con.query(blogSql);
+        const [dataUser] = await con.query(userSql, req.userID);
+        con.end();
+        //res.send(dataBlog);
+        res.send(dataUser);
+    } else {
+        const [dataBlog] = await con.query(blogSql);
+        con.end();
+        res.send(dataBlog);
+    }
 };
 
 export { allBlogs }

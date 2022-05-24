@@ -4,9 +4,10 @@ import express from 'express';
 import { allBlogs } from '../../controllers/UI/home.js';
 //Middleware imports
 import checkToken from '../../middleware/auth/checkToken.js';
+import authorization from '../../middleware/auth/registered_unregistered.js';
 
 const homeRouter = express.Router();
 
-homeRouter.get('/', allBlogs)
+homeRouter.get('/', authorization, allBlogs);
 
 export default homeRouter

@@ -53,7 +53,16 @@ nav {
     padding: 0.67em
 }
 
-.dark-mode {
-    background-color: black;
-    color: white;
+/* .dark-mode {
+    background-color: rgba(15, 15, 15, 0.955);
+    color: rgb(189, 189, 189)
 }
+
+.select-dark-mode {
+    background-color: rgba(15, 15, 15, 0.655);
+    color: rgb(189, 189, 189)
+}
+
+.card-dark-mode {
+    border: 1px solid rgb(189, 189, 189);
+} */

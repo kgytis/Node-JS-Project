@@ -8,58 +8,44 @@ import mysqlConfig from '../../dbConfig.js';
 
 const allBlogs = async (req, res) => {
     try {
-        console.log(req.userID)
         const con = await mysql.createConnection(mysqlConfig);
         const { sorting } = req.query; // for sorting and filtering
-        let blogSql = null;
-        let userSql = null;
-        if (req.userID) {
-            blogSql = `
-            SELECT * 
-            FROM blog
-        `;
-            userSql = `
-            SELECT * 
-            FROM user
-            WHERE id = ?
-        `;
-        } else {
-            blogSql = `
+        console.log(sorting)
+        const userData = {
+            userID: req.userID,
+            email: req.email,
+            username: req.username
+        }
+        let sql = `
         SELECT * 
         FROM blog
-        `;
-        };
-
+        `
         // SORTING -----------------------------------------------------------------------------
         // Selected xxx Desc
         // if (sorting === 'creationDateDesc') { // prideti filterAndSort.xxx !==
         //     sql += ` ORDER BY blog.created_at DESC`
         // }
-        // // Selected genre Asc
+        // // Selected xxx Asc
         // if (sorting === 'creationDateAsc') { // prideti filterAndSort.xxx !==
         //     sql += ` ORDER BY blog.created_at ASC`
         // }
         // All Desc
         if (sorting === 'creationDateDesc') { // prideti filterAndSort.xxx !==
-            blogSql += ` ORDER BY blog.created_at DESC`
+            sql += ` ORDER BY blog.created_at DESC`
         }
         //All Asc
         if (sorting === 'creationDateAsc') { // prideti filterAndSort.xxx !==
-            blogSql += ` ORDER BY blog.created_at ASC`
+            sql += ` ORDER BY blog.created_at ASC`
         }
         //-------------------------------------------------------------------------------------
-
-        if (blogSql && userSql) {
-            const [dataBlog] = await con.query(blogSql);
-            const [dataUser] = await con.query(userSql, req.userID);
-            con.end();
-            res.send(dataBlog);
-            //res.send(dataUser);
-        } else {
-            const [dataBlog] = await con.query(blogSql);
-            con.end();
-            res.send(dataBlog);
-        }
+        const [data] = await con.query(sql);
+        con.end();
+        //const creationDate = data[1].created_at.toLocaleString('LT').slice(0, 10) // jei prireiks isvedimui
+        res.render('home', {
+            title: "Blogs",
+            blogs: data,
+            userData: userData
+        })
     } catch (err) {
         res.send({ err: err })
     }

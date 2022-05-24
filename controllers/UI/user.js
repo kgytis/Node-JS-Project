@@ -5,7 +5,12 @@ import mysqlConfig from '../../dbConfig.js';
 const allUserBlogs = async (req, res) => {
     try {
         const con = await mysql.createConnection(mysqlConfig);
-        const userID = req.userID;
+        const { sorting } = req.query; // for sorting and filtering
+        const userData = {
+            userID: req.userID,
+            email: req.email,
+            username: req.username
+        }
         let sql = `
     SELECT blog.*, user.name, user.email, user.register_time
     FROM blog
@@ -13,10 +18,24 @@ const allUserBlogs = async (req, res) => {
     ON blog.author_id = user.id
     WHERE author_id = ?
     `
-        const [data] = await con.query(sql, userID);
+        // SORTING -----------------------------------------------------------------------------
+        //All Desc
+        if (sorting === 'creationDateDesc') { // prideti filterAndSort.xxx !==
+            sql += ` ORDER BY blog.created_at DESC`
+        }
+        //All Asc
+        if (sorting === 'creationDateAsc') { // prideti filterAndSort.xxx !==
+            sql += ` ORDER BY blog.created_at ASC`
+        }
+        //-------------------------------------------------------------------------------------    
+        const [data] = await con.query(sql, userData.userID);
         //console.log(data[1].created_at.toLocaleString('LT').slice(0, 10)) // jei prireiks isvedimui
         con.end();
-        res.send(data);
+        res.render('user', {
+            title: "Blogs",
+            blogs: data,
+            userData: userData
+        })
     } catch (err) {
         res.send({ err: err })
     }

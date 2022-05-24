@@ -24,6 +24,14 @@ const allBlogs = async (req, res) => {
         if (sorting === 'creationDateAsc') { // prideti filterAndSort.xxx !==
             sql += ` ORDER BY blog.created_at ASC`;
         };
+        // All title Asc
+        if (sorting === 'titleAsc') { // prideti filterAndSort.xxx !==
+            sql += ` ORDER BY blog.title ASC`
+        }
+        // All title Desc
+        if (sorting === 'titleDesc') { // prideti filterAndSort.xxx !==
+            sql += ` ORDER BY blog.title DESC`
+        }
         //-------------------------------------------------------------------------------------
         const [data] = await con.query(sql);
         con.end();

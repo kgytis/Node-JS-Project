@@ -19,13 +19,19 @@ const allUserBlogs = async (req, res) => {
     WHERE author_id = ?
     `
         // SORTING -----------------------------------------------------------------------------
-        //All Desc
+        //All Date creation Desc
         if (sorting === 'creationDateDesc') { // prideti filterAndSort.xxx !==
             sql += ` ORDER BY blog.created_at DESC`
         }
-        //All Asc
+        //All Date creation Asc
         if (sorting === 'creationDateAsc') { // prideti filterAndSort.xxx !==
             sql += ` ORDER BY blog.created_at ASC`
+        }
+        if (sorting === 'titleAsc') { // prideti filterAndSort.xxx !==
+            sql += ` ORDER BY blog.title ASC`
+        }
+        if (sorting === 'titleDesc') { // prideti filterAndSort.xxx !==
+            sql += ` ORDER BY blog.title DESC`
         }
         //-------------------------------------------------------------------------------------    
         const [data] = await con.query(sql, userData.userID);

@@ -26,12 +26,11 @@
 
 <body>
     <div>
-        <h1>Blogs</h1>
+        <h1>
+            <%=userData.username%> Blogs
+        </h1>
     </div>
-    <div> You are logged in as - <span>
-            <%=userData.username%>
-        </span></div>
-    <div>Email - <%=userData.email%>
+    <div>You are logged in with email - <%=userData.email%>
             <div>
                 <a href="/logout"><button class="btn btn-primary">Logout</button></a>
             </div>
@@ -44,6 +43,8 @@
                     <select name="sorting" id="sorting" class="form-control">
                         <option value="creationDateDesc">Creation date Desc</option>
                         <option value="creationDateAsc">Creation date Asc</option>
+                        <option value="titleAsc">Title (A-Z)</option>
+                        <option value="titleDesc">Title (Z-A)</option>
                     </select>
                     <input type="submit" value="Sort" class="btn btn-primary">
                 </div>

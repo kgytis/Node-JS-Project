@@ -31,7 +31,7 @@ const newUser = async (req, res) => {
         const registerTime = new Date().toLocaleString('LT');
         const [data] = await con.query(sql, [req.body.username, req.body.email, hashedPassword, registerTime]);
         con.end();
-        res.send(data); // After testing in Postman, redirect to home page with all blogs.
+        res.redirect('/'); // After testing in Postman, redirect to home page with all blogs.
     } catch (err) {
         return res.status(500).send({ msg: err });
     };

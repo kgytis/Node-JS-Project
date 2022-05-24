@@ -18,3 +18,13 @@
 .btn {
     margin-top: 5px;
 }
+
+.submit {
+    text-align: center;
+    margin: 0 auto
+}
+
+.block {
+    display: block;
+    width: 100%;
+}

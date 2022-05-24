@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser'; // For JWT storing
 // Routes imports
 import apiBlogsRouter from './routes/api/blogs.js';
 import apiUsersRouter from './routes/api/users.js';
+import registerRouter from './routes/UI/register.js';
 
 const app = express();
 const port = process.env.PORT;
@@ -28,6 +29,7 @@ app.set('view engine', 'ejs');
 // Routes usage
 app.use('/api', apiBlogsRouter);
 app.use('/api', apiUsersRouter);
+app.use('/register', registerRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on PORT http://localhost:${port}`)

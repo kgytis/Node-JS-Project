@@ -41,7 +41,7 @@ const loginUser = async (req, res) => {
                 { expiresIn: '1d' }); // If time will allow, prepare token refreshing
             res.cookie('accessToken', token, { httpOnly: true });
             res.redirect('/user');
-        } else return res.status(400).send({ err: 'Incorrect email or password.' });
+        } else return res.status(400).send({ err: 'Incorrect username or password.' });
     } catch (err) {
         res.status(500).send({ err: 'Server error' });
     };

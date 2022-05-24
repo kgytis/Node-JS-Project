@@ -9,10 +9,13 @@ import cookieParser from 'cookie-parser'; // For JWT storing
 import apiBlogsRouter from './routes/api/blogs.js';
 import apiUsersRouter from './routes/api/users.js';
 
-// UI Routes
+// Auth routes
 import registerRouter from './routes/UI/register.js';
 import loginRouter from './routes/UI/login.js';
 import logoutRouter from './routes/UI/logout.js';
+
+// UI routes
+import homeRouter from './routes/UI/home.js';
 
 const app = express();
 const port = process.env.PORT;
@@ -38,6 +41,7 @@ app.use('/api', apiUsersRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
+app.use('/', homeRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on PORT http://localhost:${port}`)

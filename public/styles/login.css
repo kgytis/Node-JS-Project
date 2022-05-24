@@ -1,0 +1,20 @@
+.formDiv {
+    width: 500px;
+    margin-top: 200px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 30px;
+}
+
+.mainSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-control {
+    margin-top: 5px;
+}
+
+.btn {
+    margin-top: 5px;
+}

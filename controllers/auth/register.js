@@ -8,10 +8,14 @@ import bcrypt from 'bcryptjs';
 
 // UI
 const registrationUI = async (req, res) => {
-    res.render('registration', {
-        title: 'Registration form',
-        style: 'main.css'
-    });
+    try {
+        res.render('registration', {
+            title: 'Registration form',
+            style: 'main.css'
+        });
+    } catch (err) {
+        res.send('Page rendering problem. Try again.');
+    };
 };
 
 // Crypting
@@ -23,13 +27,13 @@ const newUser = async (req, res) => {
         INSERT INTO user
         (name, email, password, register_time)
         VALUES (?, ?, ?, ?)
-        `
+        `;
         const registerTime = new Date().toLocaleString('LT');
-        const [data] = await con.query(sql, [req.body.username, req.body.email, hashedPassword, registerTime])
-        con.end()
+        const [data] = await con.query(sql, [req.body.username, req.body.email, hashedPassword, registerTime]);
+        con.end();
         res.send(data); // After testing in Postman, redirect to home page with all blogs.
     } catch (err) {
-        return res.status(500).send({ msg: err })
+        return res.status(500).send({ msg: err });
     };
 };
 

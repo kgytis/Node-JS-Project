@@ -6,10 +6,14 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 const loginUI = async (req, res) => {
-    res.render('login', {
-        title: 'Login',
-        style: 'main.css'
-    });
+    try {
+        res.render('login', {
+            title: 'Login',
+            style: 'main.css'
+        });
+    } catch (err) {
+        res.send('Page rendering problem. Try again.')
+    };
 };
 
 const loginUser = async (req, res) => {
@@ -18,7 +22,8 @@ const loginUser = async (req, res) => {
         const sql = `
         SELECT *
         FROM user
-        WHERE name =?` // SQL query syntax
+        WHERE name =?
+        `; // SQL query syntax
 
         const [data] = await con.query(sql, req.body.username); // SQL query
         con.end(); // DB disconnection
@@ -26,7 +31,6 @@ const loginUser = async (req, res) => {
         const match = await bcrypt.compare(req.body.password, data[0].password);
         // Token creation
         if (match) { // If user input matched with DB info, JWT token created
-            console.log(data)
             const token = jwt.sign(
                 { // what information is stored within JWT
                     id: data[0].id,
@@ -35,10 +39,9 @@ const loginUser = async (req, res) => {
                 },
                 process.env.JWTSECRET,
                 { expiresIn: '1d' }); // If time will allow, prepare token refreshing
-            console.log(token)
             res.cookie('accessToken', token, { httpOnly: true });
-            res.redirect('/user')
-        } else return res.status(400).send({ err: 'Incorrect email or password.' })
+            res.redirect('/user');
+        } else return res.status(400).send({ err: 'Incorrect email or password.' });
     } catch (err) {
         res.status(500).send({ err: 'Server error' });
     };

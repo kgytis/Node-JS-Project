@@ -2,7 +2,7 @@
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 
-import loginSchema from '../../models/loginSchema.js'
+import loginSchema from '../../models/loginSchema.js';
 
 // Ajv setup
 const ajv = new Ajv({ allErrors: true, $data: true });
@@ -21,7 +21,7 @@ const loginValidation = async (req, res, next) => {
                 return res.status(400).send({ msg: validate.errors });
         };
     } catch (err) {
-        return res.status(400).send({ msg: err }) // If there will be time, create error handling separate page
+        return res.status(400).send({ msg: err }); // If there will be time, create error handling separate page
     };
     next();
 };

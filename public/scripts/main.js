@@ -8,11 +8,11 @@ deleteButtons.forEach(async (btn) => {
     });
 });
 
-const toggle = document.querySelector('#flexSwitchCheckDefault');
-const darkMode = document.querySelector('#darkModeLabel');
-const body = document.querySelector('body');
-const sorting = document.querySelector('.sortingDiv select')
-const cards = document.querySelectorAll('.flexContainer')
+// const toggle = document.querySelector('#flexSwitchCheckDefault');
+// const darkMode = document.querySelector('#darkModeLabel');
+// const body = document.querySelector('body');
+// const sorting = document.querySelector('.sortingDiv select')
+// const cards = document.querySelectorAll('.flexContainer')
 
 
 //Dar reiks patvarkyti
